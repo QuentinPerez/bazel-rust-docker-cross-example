@@ -1,0 +1,67 @@
+{
+  "checksum": "cb32b56371c28681a65d118eb557c00a30fc1b0776ccf884c3117d0c35656063",
+  "crates": {
+    "direct-cargo-bazel-deps 0.0.1": {
+      "name": "direct-cargo-bazel-deps",
+      "version": "0.0.1",
+      "repository": null,
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "direct_cargo_bazel_deps",
+            "crate_root": ".direct_cargo_bazel_deps.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "direct_cargo_bazel_deps",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2018",
+        "version": "0.0.1"
+      },
+      "license": null
+    },
+    "service 0.1.0": {
+      "name": "service",
+      "version": "0.1.0",
+      "repository": null,
+      "targets": [
+        {
+          "Binary": {
+            "crate_name": "service",
+            "crate_root": "src/main.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": null,
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2021",
+        "version": "0.1.0"
+      },
+      "license": null
+    }
+  },
+  "binary_crates": [],
+  "workspace_members": {
+    "direct-cargo-bazel-deps 0.0.1": "",
+    "service 0.1.0": "service"
+  },
+  "conditions": {}
+}
