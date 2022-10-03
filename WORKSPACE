@@ -21,7 +21,7 @@ rust_register_toolchains(
         # "aarch64-apple-ios-sim",
         # "aarch64-apple-ios",
         # "aarch64-linux-android",
-        # "x86_64-unknown-linux-gnu",
+        "x86_64-unknown-linux-gnu",
         # "armv7-linux-androideabi",
         # "i686-linux-android",
         # "x86_64-linux-android",
@@ -106,21 +106,21 @@ _rust_image_repos()
 #     tag = "latest",
 # )
 
-# BAZEL_ZIG_CC_VERSION = "v1.0.0-rc3"
+BAZEL_ZIG_CC_VERSION = "v1.0.0-rc3"
 
-# http_archive(
-#     name = "bazel-zig-cc",
-#     sha256 = "a309e20189d285a2185d69121b5dbe0db4a5b32e635a5add17d0d380c142585b",
-#     strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
-#     urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
-# )
+http_archive(
+    name = "bazel-zig-cc",
+    sha256 = "a309e20189d285a2185d69121b5dbe0db4a5b32e635a5add17d0d380c142585b",
+    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
+    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
+)
 
-# load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
+load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
 # version, url_formats and host_platform_sha256 are optional, but highly
 # recommended. Zig SDK is by default downloaded from dl.jakstys.lt, which is a
 # tiny server in the closet of Yours Truly.
-# zig_toolchains()
+zig_toolchains()
 # zig_toolchains(
 #     version = "<...>",
 #     url_formats = [
