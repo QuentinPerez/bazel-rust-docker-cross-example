@@ -18,13 +18,7 @@ rules_rust_dependencies()
 rust_register_toolchains(
     edition = "2021",
     extra_target_triples = [
-        # "aarch64-apple-ios-sim",
-        # "aarch64-apple-ios",
-        # "aarch64-linux-android",
         "x86_64-unknown-linux-gnu",
-        # "armv7-linux-androideabi",
-        # "i686-linux-android",
-        # "x86_64-linux-android",
     ],
     # rustup default nightly-2022-09-10
     include_rustc_srcs = True,
@@ -58,20 +52,32 @@ cargo_workspace_crate_repositories()
 
 # Docker #######################################################################
 
-# http_archive(
-#     name = "io_bazel_rules_go",
-#     sha256 = "099a9fb96a376ccbbb7d291ed4ecbdfd42f6bc822ab77ae6f1b5cb9e914e94fa",
-#     urls = [
-#         "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
-#         "https://github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
-#     ],
-# )
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "099a9fb96a376ccbbb7d291ed4ecbdfd42f6bc822ab77ae6f1b5cb9e914e94fa",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.35.0/rules_go-v0.35.0.zip",
+    ],
+)
 
-# load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+http_archive(
+    name = "bazel_gazelle",
+    sha256 = "501deb3d5695ab658e82f6f6f549ba681ea3ca2a5fb7911154b5aa45596183fa",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.26.0/bazel-gazelle-v0.26.0.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.26.0/bazel-gazelle-v0.26.0.tar.gz",
+    ],
+)
 
-# go_rules_dependencies()
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
-# go_register_toolchains(version = "1.19.1")
+go_rules_dependencies()
+
+go_register_toolchains(version = "1.19.1")
+
+gazelle_dependencies()
 
 http_archive(
     name = "io_bazel_rules_docker",
@@ -97,15 +103,6 @@ load(
 
 _rust_image_repos()
 
-# load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
-
-# container_pull(
-#     name = "rust_base_image",
-#     registry = "gcr.io",
-#     repository = "distroless/static-debian11",
-#     tag = "latest",
-# )
-
 BAZEL_ZIG_CC_VERSION = "v1.0.0-rc3"
 
 http_archive(
@@ -117,14 +114,4 @@ http_archive(
 
 load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
-# version, url_formats and host_platform_sha256 are optional, but highly
-# recommended. Zig SDK is by default downloaded from dl.jakstys.lt, which is a
-# tiny server in the closet of Yours Truly.
 zig_toolchains()
-# zig_toolchains(
-#     version = "<...>",
-#     url_formats = [
-#         "https://example.org/zig/zig-{host_platform}-{version}.{_ext}",
-#     ],
-#     host_platform_sha256 = { ... },
-# )
